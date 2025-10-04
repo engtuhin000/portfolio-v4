@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --accent: #00d9ff;
+  --rose1: #ff4d8a;
+  --rose2: #ff8ac6;
+  --lav: #9b7bff;
+}
+
+/* premium animated gradient background */
+body { background: radial-gradient(1200px 600px at 10% 10%, rgba(255,77,138,0.06), transparent 10%),
+                 radial-gradient(1000px 500px at 90% 90%, rgba(0,217,255,0.04), transparent 10%),
+                 linear-gradient(180deg, #061026 0%, #07102a 100%); }
+@keyframes bgShift {
+  0% { background-position: 0% 50%, 100% 50%, 50% 50%; }
+  50% { background-position: 20% 40%, 80% 60%, 50% 50%; }
+  100% { background-position: 0% 50%, 100% 50%, 50% 50%; }
+}
+:root::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: conic-gradient(from 90deg at 50% 50%, rgba(0,217,255,0.02), rgba(255,77,138,0.02), rgba(155,123,255,0.02));
+  animation: bgShift 20s linear infinite; mix-blend-mode: overlay; opacity:0.9; }
+
+html,body,#root{height:100%}
+.font-poppins{font-family:'Poppins',sans-serif}
+
+/* glass card */
+.glass{background:rgba(255,255,255,0.03);backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.04)}
+
+/* shimmer */
+.shimmer{background:linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.02) 100%);background-size:200% 100%;animation:shimmer 3s linear infinite}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* navbar link animated border */
+.nav-link{position:relative;padding:8px 10px;border-radius:8px;z-index:2}
+.nav-link::after{content:'';position:absolute;inset:-3px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--rose1),var(--lav));opacity:0;transform:scale(0.97);transition:all .35s}
+.nav-link.active::after{opacity:1;transform:scale(1);filter:blur(6px);animation:spin 4s linear infinite}
+@keyframes spin{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+
+/* custom cursor glow + ripple container */
+.cursor-glow{position:fixed;pointer-events:none;z-index:9999;width:120px;height:120px;border-radius:999px;transform:translate(-50%,-50%);mix-blend-mode:screen;filter:blur(20px);opacity:0.95;background:radial-gradient(circle at 30% 30%, rgba(255,77,138,0.35), rgba(255,138,198,0.12) 40%, rgba(0,217,255,0.06) 70%, transparent 100%);transition:width .12s,height .12s,opacity .12s;}
+
+/* ripple class created dynamically */
+.ripple { position: fixed; border-radius: 999px; pointer-events:none; transform: translate(-50%, -50%); mix-blend-mode: screen; }
+.ripple-inner { background: radial-gradient(circle at 40% 40%, rgba(255,77,138,0.28), rgba(255,138,198,0.14) 40%, rgba(0,217,255,0.05) 70%, transparent 100%); filter: blur(14px); width: 20px; height: 20px; border-radius:999px; opacity:0.9; animation: rippleAnim 700ms forwards; }
+@keyframes rippleAnim { to { transform: scale(18); opacity: 0; } }
+
+/* hide default pointer on desktop */
+@media (min-width: 640px){ body { cursor: none; } }
+
+/* responsiveness */
+@media (max-width: 768px){ .nav-desktop{display:none} .nav-mobile{display:block} }
+@media (min-width: 769px){ .nav-mobile{display:none} }
